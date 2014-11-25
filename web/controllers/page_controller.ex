@@ -4,7 +4,8 @@ defmodule Chatter.PageController do
   plug :action
 
   def index(conn, _params) do
-    render conn, "index"
+    messages = Data.all(Chatter.Message)
+    render conn, "index", messages: messages
   end
 
   def not_found(conn, _params) do

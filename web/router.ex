@@ -12,4 +12,8 @@ defmodule Chatter.Router do
   # scope "/api" do
   #   pipe_through :api
   # end
+
+  use Phoenix.Router.Socket, mount: "/sockets"
+
+  channel "broadcast", Chatter.BroadcastChannel
 end
