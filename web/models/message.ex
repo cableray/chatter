@@ -4,5 +4,6 @@ defmodule Chatter.Message do
   schema "messages" do
     field :body,    :string
     field :sent_at, :datetime
+    field :topic, 	:string
   end
 end

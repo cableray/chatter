@@ -6,14 +6,7 @@
 <div class="row chat">
   <div class="col-lg-12">
     <h4>Messages: <small>Lobby</small></h4>
-    <div id="lobby_messages">
-      <%= for message <- @messages do %>
-        <div class="message panel">
-          <%= message.body %>
-          <time class="sent-at pull-right text-muted"><%= '#{message.sent_at.year}-#{message.sent_at.month}-#{message.sent_at.day}' %></time>
-        </div>
-        <% end %>
-    </div>
+    <div id="lobby_messages"></div>
     <form id="lobby_send_message" onsubmit="event.preventDefault();">
       <input name="message" class="form-control" id= "message"/>
       <button class="btn btn-default">Send</button>
@@ -22,11 +15,8 @@
 </div>
 
 <script type="text/javascript">
-  var socket = new Phoenix.Socket('/sockets');
-
-  socket.join('broadcast', 'lobby', {}, function(channel){
-    channel.on('receive', function(message) {
-      var $messages = $("#lobby_messages");
+  function renderMessage(message){
+    var $messages = $("#lobby_messages");
 
       $('<div class="message panel">'+
         message.body+
@@ -35,7 +25,15 @@
       hide().
       appendTo($messages).
       fadeIn();
+  }
+
+  var socket = new Phoenix.Socket('/sockets');
+
+  socket.join('broadcast', 'lobby', {}, function(channel){
+    channel.on('join', function(response){
+      _.each(response.messages, renderMessage);
     });
+    channel.on('receive', renderMessage);
 
     $("#lobby_send_message").submit(function(event){
       var $message = $("#message");
