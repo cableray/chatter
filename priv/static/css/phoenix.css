@@ -79,6 +79,18 @@ body {
 	margin-bottom: 1em;
 }
 
+.message {
+  background-color: rgba(0,0,100, 0.05);
+  padding: .5em 1em;
+  margin-bottom: .5em;
+}
+
+.inline-field {
+  display:inline-block;
+  width: auto;
+  border: none;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   /* Remove the padding we set earlier */

@@ -5,7 +5,7 @@
 
 <div class="row chat">
   <div class="col-lg-12">
-    <h4>Messages: <small>Lobby</small></h4>
+    <h4>Messages: <small><input class="inline-field" id="topic-field" value="Lobby"/></small></h4>
     <div id="lobby_messages"></div>
     <form id="lobby_send_message" onsubmit="event.preventDefault();">
       <input name="message" class="form-control" id= "message"/>
@@ -18,29 +18,39 @@
   function renderMessage(message){
     var $messages = $("#lobby_messages");
 
-      $('<div class="message panel">'+
-        message.body+
-        '<time class="sent-at pull-right text-muted">'+message.sent_at.year+'-'+message.sent_at.month+'-'+message.sent_at.day +'</time>'+
+      $('<div class="message">'+
+        '<time class="sent-at pull-right text-muted">'+message.sent_at.year+'-'+message.sent_at.month+'-'+message.sent_at.day +'</time>'+message.body+
         '</div>').
       hide().
       appendTo($messages).
       fadeIn();
   }
 
+
+  function joinTopic(socket, topic){
+    socket.join('broadcast', topic, {}, function(channel){
+      channel.on('join', function(response){
+        $("#lobby_messages").empty();
+        _.each(response.messages, renderMessage);
+      });
+      channel.on('receive', renderMessage);
+
+      $("#lobby_send_message").off().submit(function(event){
+        var $message = $("#message");
+
+        channel.send('send', {body: $message.val()});
+
+        $message.val('');
+      });
+    });
+  }
+
   var socket = new Phoenix.Socket('/sockets');
 
-  socket.join('broadcast', 'lobby', {}, function(channel){
-    channel.on('join', function(response){
-      _.each(response.messages, renderMessage);
-    });
-    channel.on('receive', renderMessage);
-
-    $("#lobby_send_message").submit(function(event){
-      var $message = $("#message");
-
-      channel.send('send', {body: $message.val()});
-
-      $message.val('');
-    });
+  $("#topic-field").change(function(event){
+    joinTopic(socket, this.value);
   });
+
+  joinTopic(socket, 'lobby');
+
 </script>
