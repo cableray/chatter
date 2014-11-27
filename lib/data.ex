@@ -1,4 +1,5 @@
 defmodule Data do
+  require Logger
   use Ecto.Repo, adapter: Ecto.Adapters.Postgres, env: Mix.env
 
   @doc "Adapter configuration"
@@ -21,4 +22,13 @@ defmodule Data do
   def priv do
     app_dir(:chatter, "priv/data")
   end
+
+  @doc "Log and time queries"
+  def log({:query, sql}, fun) do
+    {time, result} = :timer.tc(fun)
+    Logger.debug("query (completed in #{time}ms): #{sql}")
+    result
+  end
+
+  def log(_arg, fun), do: fun.()
 end
