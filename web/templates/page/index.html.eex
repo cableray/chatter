@@ -8,7 +8,7 @@
     <h4>Messages: <small><input class="inline-field" id="topic-field" value="Lobby"/></small></h4>
     <div id="lobby_messages"></div>
     <form id="lobby_send_message" onsubmit="event.preventDefault();">
-      <input name="message" class="form-control" id= "message"/>
+      <input name="message" class="form-control" id= "message" placeholder="message"/>
       <button class="btn btn-default">Send</button>
     </form>
   </div>
@@ -19,7 +19,9 @@
     var $messages = $("#lobby_messages");
 
       $('<div class="message">'+
-        '<time class="sent-at pull-right text-muted">'+message.sent_at.year+'-'+message.sent_at.month+'-'+message.sent_at.day +'</time>'+message.body+
+        '<time class="sent-at pull-right text-muted">'+message.sent_at.year+'-'+message.sent_at.month+'-'+message.sent_at.day +'</time>'+
+        '<span class="sender-name text-muted">'+message.sender_name+' </span>'
+        +message.body+
         '</div>').
       hide().
       appendTo($messages).
@@ -28,7 +30,7 @@
 
 
   function joinTopic(socket, topic){
-    socket.join('broadcast', topic, {}, function(channel){
+    socket.join('broadcast', topic, {sender_name: '~anon'}, function(channel){
       channel.on('join', function(response){
         $("#lobby_messages").empty();
         _.each(response.messages, renderMessage);
@@ -51,6 +53,6 @@
     joinTopic(socket, this.value);
   });
 
-  joinTopic(socket, 'lobby');
+  joinTopic(socket, 'Lobby');
 
 </script>
