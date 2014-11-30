@@ -6,6 +6,8 @@ defmodule Chatter.Router do
     pipe_through :browser
 
     get "/", Chatter.PageController, :index, as: :pages
+    get "/topics", Chatter.TopicsController, :index, as: :topics
+    get "/topics/:topic", Chatter.TopicsController, :show, as: :topic
   end
 
   # Other scopes may use custom stacks.
