@@ -16,12 +16,4 @@ defmodule Chatter.TopicsController do
   def show(conn, %{"topic" => topic}) do
     render conn, "show", topic: URI.decode(topic)
   end
-
-  def not_found(conn, _params) do
-    render conn, "not_found"
-  end
-
-  def error(conn, _params) do
-    render conn, "error"
-  end
 end
