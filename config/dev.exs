@@ -6,3 +6,8 @@ config :chatter, Chatter.Endpoint,
 
 # Enables code reloading for development
 config :phoenix, :code_reloader, true
+
+# "ecto://localhost/chatter_data_dev"
+config :chatter, Data,
+      database: "chatter_data_dev",
+      hostname: "localhost"
