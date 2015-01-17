@@ -4,7 +4,6 @@ defmodule Chatter.View do
   using do
     quote do
       # This block is expanded within all views for aliases, imports, etc
-      import Chatter.I18n
       import Chatter.Router.Helpers
 
       # Use Phoenix.HTML to import all HTML functions (forms, tags, etc)

@@ -6,7 +6,7 @@
 use Mix.Config
 
 # Configures the router
-config :phoenix, Chatter.Router,
+config :chatter, Chatter.Endpoint,
   url: [host: "localhost"],
   http: [port: System.get_env("PORT")],
   https: false,
@@ -16,7 +16,7 @@ config :phoenix, Chatter.Router,
   error_controller: Chatter.PageController
 
 # Session configuration
-config :phoenix, Chatter.Router,
+config :chatter, Chatter.Endpoint,
   session: [store: :cookie,
             key: "_chatter_key"]
 

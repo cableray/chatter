@@ -19,6 +19,7 @@ defmodule Chatter.BroadcastChannel do
     broadcast socket, "user:left", %{sender_name: sender_name}
 
     # TODO: Account for multiple sockets opened to the same user
+    {:ok, socket}
   end
 
   def event(socket, "send", %{"body" => body}) do

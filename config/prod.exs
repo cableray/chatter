@@ -11,7 +11,7 @@ use Mix.Config
 # Where those two env variables point to a file on
 # disk for the key and cert.
 
-config :phoenix, Chatter.Router,
+config :chatter, Chatter.Endpoint,
   url: [host: "example.com"],
   http: [port: System.get_env("PORT")],
   secret_key_base: "tDfLiQVF9zosHq3sUgzYEIKVBoQ9Pwj2FU06IdeXgbIX4L/cLG0YE8IW5l4d/lw8VPvCWLJ3qpAlFOMDaGxIJw=="
