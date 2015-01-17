@@ -2,6 +2,6 @@
 
 <ul>
 <%= for topic <- @topics do %>
-	<li><a href="<%= topic_path :show, topic %>"><%= topic %></a></li>
+	<li><a href="<%= topic_path @conn, :show, topic %>"><%= topic %></a></li>
 <% end %>
 </ul>

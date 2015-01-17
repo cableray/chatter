@@ -2,7 +2,7 @@ defmodule Chatter.BroadcastChannel do
   use Phoenix.Channel
   import Ecto.Query, only: [from: 2]
 
-  def join(socket, topic, message) do
+  def join("broadcast:" <> topic, message, socket) do
     sender_name = Dict.get(message, "sender_name")
     socket = assign(socket, :sender_name, sender_name)
     messages = Data.all(from m in Chatter.Message, where: m.topic == ^topic)
@@ -13,22 +13,22 @@ defmodule Chatter.BroadcastChannel do
   end
 
   @doc "called when a socket closes"
-  def leave(socket, _reason) do
+  def leave(_reason, socket) do
     sender_name = socket.assigns[:sender_name]
     Chatter.ActiveUsers.leave sender_name
     broadcast socket, "user:left", %{sender_name: sender_name}
 
     # TODO: Account for multiple sockets opened to the same user
-    {:ok, socket}
+    {:leave, socket}
   end
 
-  def event(socket, "send", %{"body" => body}) do
+  def handle_in("send", %{"body" => body}, socket) do
     message = Data.insert(
       %Chatter.Message{
         body: body, 
         topic: socket.topic, 
         sender_name: socket.assigns[:sender_name]})
     broadcast socket, "receive", message
-    socket
+    {:ok, socket}
   end
 end

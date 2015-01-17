@@ -4,6 +4,7 @@ defmodule Chatter.Router do
   pipeline :browser do
     plug :accepts, ~w(html)
     plug :fetch_session
+    plug :fetch_flash
   end
 
   pipeline :api do
@@ -24,7 +25,7 @@ defmodule Chatter.Router do
   #   pipe_through :api
   # end
 
-  use Phoenix.Router.Socket, mount: "/sockets"
-
-  channel "broadcast", Chatter.BroadcastChannel
+  socket "/sockets", Chatter do
+    channel "broadcast:*", BroadcastChannel    # match any topic starting with "broadcast:"
+  end
 end

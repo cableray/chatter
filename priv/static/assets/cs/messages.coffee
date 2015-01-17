@@ -7,7 +7,7 @@ app.controller "MessagesController", ['socket', '$scope', '$cookies', (socket, $
 
   topic = "Lobby"
 
-  socket.join 'broadcast', topic, {sender_name: $cookies.sender_name}, (channel)->
+  socket.join "broadcast:#{topic}", {sender_name: $cookies.sender_name}, (channel)->
     channel.on 'join', (response)->
       $scope.topic = topic
       $scope.messages = response.messages

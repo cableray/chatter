@@ -11,7 +11,7 @@
       $scope.users = [];
       $scope.newMessage = {};
       topic = "Lobby";
-      return socket.join('broadcast', topic, {
+      return socket.join("broadcast:" + topic, {
         sender_name: $cookies.sender_name
       }, function(channel) {
         channel.on('join', function(response) {

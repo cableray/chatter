@@ -8,8 +8,6 @@ defmodule Chatter.View do
 
       # Use Phoenix.HTML to import all HTML functions (forms, tags, etc)
       use Phoenix.HTML
-
-      alias Phoenix.Controller.Flash
     end
   end
 

@@ -7,6 +7,7 @@ defmodule Chatter do
     import Supervisor.Spec, warn: false
 
     children = [
+      worker(Chatter.Endpoint, []),
       # Define workers and child supervisors to be supervised
       # worker(Chatter.Worker, [arg1, arg2, arg3])
       worker(Data, []),
