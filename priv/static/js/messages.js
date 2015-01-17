@@ -2,11 +2,7 @@
 (function() {
   var app;
 
-  app = angular.module("ChatterMessages", []);
-
-  app.factory("socket", function() {
-    return new Phoenix.Socket('/sockets');
-  });
+  app = angular.module("ChatterMessages", ["PhoenixSocket"]);
 
   app.controller("MessagesController", [
     'socket', '$scope', '$cookies', function(socket, $scope, $cookies) {
@@ -21,20 +17,16 @@
         channel.on('join', function(response) {
           $scope.topic = topic;
           $scope.messages = response.messages;
-          $scope.users = response.active_users;
-          return $scope.$digest();
+          return $scope.users = response.active_users;
         });
         channel.on('receive', function(message) {
-          $scope.messages.push(message);
-          return $scope.$digest();
+          return $scope.messages.push(message);
         });
         channel.on('user:joined', function(message) {
-          _.pull($scope.users, message.sender_name).push(message.sender_name);
-          return $scope.$digest();
+          return _.pull($scope.users, message.sender_name).push(message.sender_name);
         });
         channel.on('user:left', function(message) {
-          _.pull($scope.users, message.sender_name);
-          return $scope.$digest();
+          return _.pull($scope.users, message.sender_name);
         });
         return $scope.sendMessage = function(message) {
           channel.send('send', $scope.newMessage);

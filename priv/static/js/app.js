@@ -2,7 +2,7 @@
 (function() {
   var app;
 
-  app = window.angular.module('Chatter', ['ChatterMessages', 'ngCookies']);
+  app = window.angular.module('Chatter', ['ChatterMessages', 'ChatterTopics', 'ngCookies']);
 
   app.run([
     '$rootScope', '$cookies', function($rootScope, $cookies) {

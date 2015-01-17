@@ -12,7 +12,7 @@ defmodule Chatter.ActiveUsers do
 
   @doc "Get a list of all the active users"
   def list() do
-    list(__MODULE__, :list)
+    list(__MODULE__)
   end
 
   def list(pid) do
