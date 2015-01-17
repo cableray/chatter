@@ -1,3 +1,3 @@
 defmodule Chatter.TopicsView do
-  use Chatter.Views
+  use Chatter.View
 end

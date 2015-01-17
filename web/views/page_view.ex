@@ -1,3 +1,3 @@
 defmodule Chatter.PageView do
-  use Chatter.Views
+  use Chatter.View
 end

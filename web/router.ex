@@ -1,6 +1,15 @@
 defmodule Chatter.Router do
   use Phoenix.Router
 
+  pipeline :browser do
+    plug :accepts, ~w(html)
+    plug :fetch_session
+  end
+
+  pipeline :api do
+    plug :accepts, ~w(json)
+  end
+
   scope "/" do
     # Use the default browser stack.
     pipe_through :browser

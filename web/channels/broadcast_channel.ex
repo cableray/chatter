@@ -14,7 +14,7 @@ defmodule Chatter.BroadcastChannel do
 
   @doc "called when a socket closes"
   def leave(socket, _reason) do
-    sender_name = get_assign(socket, :sender_name)
+    sender_name = socket.assigns[:sender_name]
     Chatter.ActiveUsers.leave sender_name
     broadcast socket, "user:left", %{sender_name: sender_name}
 
@@ -26,7 +26,7 @@ defmodule Chatter.BroadcastChannel do
       %Chatter.Message{
         body: body, 
         topic: socket.topic, 
-        sender_name: get_assign(socket, :sender_name)})
+        sender_name: socket.assigns[:sender_name]})
     broadcast socket, "receive", message
     socket
   end

@@ -10,10 +10,10 @@ defmodule Chatter.TopicsController do
       group_by: m.topic,
       select: m.topic
     )
-    render conn, "index", topics: topics
+    render conn, :index, topics: topics
   end
 
   def show(conn, %{"topic" => topic}) do
-    render conn, "show", topic: URI.decode(topic)
+    render conn, :show, topic: URI.decode(topic)
   end
 end

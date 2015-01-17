@@ -1,13 +1,15 @@
-defmodule Chatter.Views do
+defmodule Chatter.View do
+  use Phoenix.View, root: "web/templates"
 
-  defmacro __using__(_options) do
+  using do
     quote do
-      use Phoenix.View
-      import unquote(__MODULE__)
-
       # This block is expanded within all views for aliases, imports, etc
       import Chatter.I18n
       import Chatter.Router.Helpers
+
+      # Use Phoenix.HTML to import all HTML functions (forms, tags, etc)
+      use Phoenix.HTML
+
       alias Phoenix.Controller.Flash
     end
   end
