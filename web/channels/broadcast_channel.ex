@@ -9,7 +9,6 @@ defmodule Chatter.BroadcastChannel do
     Chatter.ActiveUsers.join sender_name
     broadcast socket, "user:joined", %{sender_name: sender_name}
     reply socket, "join", %{messages: messages, active_users: Chatter.ActiveUsers.list}
-    {:ok, socket}
   end
 
   @doc "called when a socket closes"
@@ -22,13 +21,16 @@ defmodule Chatter.BroadcastChannel do
     {:leave, socket}
   end
 
-  def handle_in("send", %{"body" => body}, socket) do
+  def handle_in(
+    "send", 
+    %{"body" => body}, 
+    socket = %{topic: "broadcast:"<>topic}
+    ) do
     message = Data.insert(
       %Chatter.Message{
         body: body, 
-        topic: socket.topic, 
+        topic: topic, 
         sender_name: socket.assigns[:sender_name]})
     broadcast socket, "receive", message
-    {:ok, socket}
   end
 end
