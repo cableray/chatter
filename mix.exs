@@ -25,6 +25,6 @@ defmodule Chatter.Mixfile do
     [{:phoenix, "0.8.0"},
      {:cowboy, "~> 1.0"},
      {:postgrex, ">= 0.0.0"},
-     {:ecto, "~> 0.5.0"}]
+     {:ecto, "~> 0.6.0"}]
   end
 end

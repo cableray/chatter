@@ -3,8 +3,9 @@ defmodule Chatter.Message do
 
   schema "messages" do
     field :body,        :string
-    field :sent_at,     :datetime
     field :topic,       :string
     field :sender_name, :string
+  timestamps inserted_at: :sent_at, updated_at: false
   end
+
 end
