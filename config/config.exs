@@ -13,7 +13,8 @@ config :chatter, Chatter.Endpoint,
   secret_key_base: "tDfLiQVF9zosHq3sUgzYEIKVBoQ9Pwj2FU06IdeXgbIX4L/cLG0YE8IW5l4d/lw8VPvCWLJ3qpAlFOMDaGxIJw==",
   catch_errors: true,
   debug_errors: false,
-  error_controller: Chatter.PageController
+  error_controller: Chatter.PageController,
+  pubsub: [adapter: Phoenix.PubSub.PG2]
 
 # Session configuration
 config :chatter, Chatter.Endpoint,

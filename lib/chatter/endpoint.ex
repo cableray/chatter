@@ -2,7 +2,8 @@ defmodule Chatter.Endpoint do
   use Phoenix.Endpoint, otp_app: :chatter
 
   plug Plug.Static,
-    at: "/", from: :chatter
+    at: "/", from: :chatter,
+    only: ~w(css images js partials favicon.ico robots.txt)
 
   plug Plug.Logger
 

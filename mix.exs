@@ -22,7 +22,7 @@ defmodule Chatter.Mixfile do
   #
   # Type `mix help deps` for examples and options
   defp deps do
-    [{:phoenix, "0.8.0"},
+    [{:phoenix, "0.9.0"},
      {:cowboy, "~> 1.0"},
      {:postgrex, ">= 0.0.0"},
      {:ecto, "~> 0.7.0"}]
